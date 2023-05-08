@@ -1,0 +1,1 @@
+Para mi proyecto quiero hacer un programa en java que saque el IMC de una persona y luego lo almacene en un archivo , luego veremos en el archivo la lista de personas. 
