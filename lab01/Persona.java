@@ -16,16 +16,18 @@ public class Persona {
    }	
    
    public Persona(){
-   // Persona("Jhon Doe", 0.0 , 0.0 , 1 );
+	   this("John",0.0,0.0,1);
    }
    
-   public void setIMC(){
-	IMC = peso/altura*altura;
+   public double getIMC(){
+	return IMC;
 
    }
-
+   public double setIMC() {
+	   return peso/altura*altura;
+   }
    public String toString(){
-	return nombre + "\t" + edad + "\t" + peso + "\t" + altura + "\t" + IMC;
+	return nombre + "\t" + edad + "\t" + peso + "\t" + altura + "\t" + setIMC();
 
    }
 
