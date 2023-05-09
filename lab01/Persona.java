@@ -1,20 +1,22 @@
+
+import java.util.*;
 public class Persona {
    private String nombre ="";
    private double peso;
    private double IMC = 0;	 
-   private double altura
+   private double altura;
    private int edad;
  
    public Persona( String n , double p , double a , int edad ){
 	this.nombre = n ;
 	this.peso = p;
 	this.altura = a;
-	this.edad = edad
+	this.edad = edad;
  
    }	
    
    public Persona(){
-    super("Jhon Doe", 0.0 , 0.0 , 1 );
+   // Persona("Jhon Doe", 0.0 , 0.0 , 1 );
    }
    
    public void setIMC(){
@@ -23,7 +25,7 @@ public class Persona {
    }
 
    public String toString(){
-	return nombre + "\t" + edad + "\t" + peso + "\t" + altura + "\t" + IMC
+	return nombre + "\t" + edad + "\t" + peso + "\t" + altura + "\t" + IMC;
 
    }
 
