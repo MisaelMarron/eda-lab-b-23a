@@ -15,7 +15,7 @@ public class Ingresar_Datos {
 	double peso = scan.nextDouble();
 
 	System.out.println("Ingrese su altura : ");		
-	double altura = scan.nextDouble();
+	double altura = scan.nextDouble();awdadw
 
 	Persona p1 = new Persona(nombre,peso,altura,edad);
 	System.out.println(p1);
