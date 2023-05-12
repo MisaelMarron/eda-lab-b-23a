@@ -1,6 +1,6 @@
 
 import java.util.*;
-
+import java.io.*;
 public class Main{
   public static Scanner scan = new Scanner(System.in);
   public static void main(String[] args) {
@@ -18,12 +18,11 @@ public class Main{
 	  }
 	  
 	  System.out.println("Usted a finalizado el llenado de datos");
-	  
+	  escribirDocumento(Lista_Personas);
 	  
   }
   public static Persona IngresarDatos() {
 	  
-
   	System.out.println("Buenos Dias amig@ \nIngrese su nombre: ");
 	String nombre = scan.next();
 
@@ -37,9 +36,32 @@ public class Main{
 	double altura = scan.nextDouble();
 
 	Persona p = new Persona(nombre,peso,altura,edad);
+	//ejemplo 
 	System.out.println(p);
+	
 	return (p);
 	  
   }
-  
+  public static void escribirDocumento(ArrayList <Persona> lista) {
+	  //creamos el documento. 
+	  Date date = new Date();
+	  try {
+	      File archivo = new File("Registro.txt");
+	      FileWriter writer = new FileWriter("Registro.txt");
+	      	  writer.write("\tREGISTRO DE DATOS DE IMC\n");
+	    	  writer.write("NOMBRE\tEDAD\tPESO\tALTURA\tIMC\n");
+	        for (Persona p : lista) {
+	        	String texto = p.toString()+"\n";
+	        	writer.write(texto);
+
+	      }
+	        writer.write("\n\nEste registro fue llenado el :  "+date);
+	        writer.close();
+	    } 
+	  catch (IOException e) {	      
+	      e.printStackTrace();
+	    }
+	  
+	  
+  }
 }
