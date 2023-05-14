@@ -20,6 +20,7 @@ public class Main{
 	  System.out.println("Usted a finalizado el llenado de datos");
 	  escribirDocumento(Lista_Personas);
 	  
+	  
   }
   public static Persona IngresarDatos() {
 	  
@@ -34,8 +35,11 @@ public class Main{
 
 	System.out.println("Ingrese su altura : ");		
 	double altura = scan.nextDouble();
-
+	
+	
 	Persona p = new Persona(nombre,peso,altura,edad);
+	p.setIMC();
+	p.setEstatus(p.getIMC());
 	//ejemplo 
 	System.out.println(p);
 	
@@ -49,7 +53,7 @@ public class Main{
 	      File archivo = new File("Registro.txt");
 	      FileWriter writer = new FileWriter("Registro.txt");
 	      	  writer.write("\tREGISTRO DE DATOS DE IMC\n");
-	    	  writer.write("NOMBRE\tEDAD\tPESO\tALTURA\tIMC\n");
+	    	  writer.write("NOMBRE\tEDAD\tPESO\tALTURA\tIMC\tESTADO\n");
 	        for (Persona p : lista) {
 	        	String texto = p.toString()+"\n";
 	        	writer.write(texto);
@@ -57,6 +61,7 @@ public class Main{
 	      }
 	        writer.write("\n\nEste registro fue llenado el :  "+date);
 	        writer.close();
+	        leerDocumento(archivo);
 	    } 
 	  catch (IOException e) {	      
 	      e.printStackTrace();
@@ -64,4 +69,24 @@ public class Main{
 	  
 	  
   }
+  public static void leerDocumento(File doc)  {
+	  try {
+	  FileReader fr = new FileReader(doc);
+	  BufferedReader br = new BufferedReader(fr);
+	  
+	  String linea;
+      while((linea=br.readLine())!=null)
+         System.out.println(linea);
+	  
+      br.close();
+	  }
+	  
+	  
+	  catch(Exception e){
+	         e.printStackTrace();
+	  
+	  	}
+	  
+  }
+  
 }
