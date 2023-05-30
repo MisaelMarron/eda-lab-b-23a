@@ -15,7 +15,7 @@ public class Nodo<E> {
 	public void setData(E data) {
 		this.data = data;
 	}
-	public Nodo<E> getNext() {
+	public Nodo<E> nextNodo() {
 		return this.next;
 	}
 	public void setNext(Nodo<E> next) {
