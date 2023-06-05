@@ -1,0 +1,388 @@
+%package list
+\documentclass{article}
+\usepackage[top=3cm, bottom=3cm, outer=3cm, inner=3cm]{geometry}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{url}
+%\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{array}
+%\usepackage{multicol}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+\usepackage{natbib}
+\usepackage{pdfpages}
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\usepackage{svg}
+\usepackage{xcolor}
+\usepackage{listings}
+\lstdefinestyle{ascii-tree}{
+    literate={├}{|}1 {─}{--}1 {└}{+}1 
+  }
+\lstset{basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{red},
+  keywordstyle=\color{blue}
+}
+%\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{array}
+
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{N}{@{}m{0pt}@{}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\itemEmail}{mmarronl@unsa.edu.pe}
+\newcommand{\itemStudent}{Misael Marrón Lope}
+\newcommand{\itemCourse}{EDA}
+\newcommand{\itemCourseCode}{20220575}
+\newcommand{\itemSemester}{III}
+\newcommand{\itemUniversity}{Universidad Nacional de San Agustín de Arequipa}
+\newcommand{\itemFaculty}{Facultad de Ingeniería de Producción y Servicios}
+\newcommand{\itemDepartment}{Departamento Académico de Ingeniería de Sistemas e Informática}
+\newcommand{\itemSchool}{Escuela Profesional de Ingeniería de Sistemas}
+\newcommand{\itemAcademic}{2023 - A}
+\newcommand{\itemInput}{ 2023}
+\newcommand{\itemOutput}{5 junio 2023}
+\newcommand{\itemPracticeNumber}{02}
+\newcommand{\itemTheme}{Java y GitHub}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[english,spanish]{babel}
+\usepackage[utf8]{inputenc}
+\AtBeginDocument{\selectlanguage{spanish}}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\refname}{Referencias}
+\renewcommand{\tablename}{Tabla} %esto no funciona cuando se usa babel
+\AtBeginDocument{%
+	\renewcommand\tablename{Tabla}
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{30pt}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\fancyhead[L]{\raisebox{-0.2\height}{\includegraphics[width=3cm]{img/logo_episunsa.png}}}
+\fancyhead[C]{\fontsize{7}{7}\selectfont	\itemUniversity \\ \itemFaculty \\ \itemDepartment \\ \itemSchool \\ \textbf{\itemCourse}}
+\fancyhead[R]{\raisebox{-0.2\height}{\includegraphics[width=1.2cm]{img/logo_abet}}}
+\fancyfoot[L]{Estudiante Misael Marron Lope}
+\fancyfoot[C]{\itemCourse}
+\fancyfoot[R]{Página \thepage}
+
+% para el codigo fuente
+\usepackage{listings}
+\usepackage{color, colortbl}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{codebackground}{rgb}{0.95, 0.95, 0.92}
+\definecolor{tablebackground}{rgb}{0.8, 0, 0}
+
+\lstset{frame=tb,
+	language=bash,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3,
+	backgroundcolor= \color{codebackground},
+}
+
+\begin{document}
+	
+	\vspace*{10px}
+	
+	\begin{center}	
+		\fontsize{17}{17} \textbf{ Informe de Laboratorio \itemPracticeNumber}
+	\end{center}
+	\centerline{\textbf{\Large Tema: \itemTheme}}
+	%\vspace*{0.5cm}	
+
+	\begin{flushright}
+		\begin{tabular}{|M{2.5cm}|N|}
+			\hline 
+			\rowcolor{tablebackground}
+			\color{white} \textbf{Nota}  \\
+			\hline 
+			     \\[30pt]
+			\hline 			
+		\end{tabular}
+	\end{flushright}	
+
+	\begin{table}[H]
+		\begin{tabular}{|x{4.7cm}|x{4.8cm}|x{4.8cm}|}
+			\hline 
+			\rowcolor{tablebackground}
+			\color{white} \textbf{Estudiante} & \color{white}\textbf{Escuela}  & \color{white}\textbf{Asignatura}   \\
+			\hline 
+			{\itemStudent \par \itemEmail} & \itemSchool & {\itemCourse \par Semestre: \itemSemester \par Código: \itemCourseCode}     \\
+			\hline 			
+		\end{tabular}
+	\end{table}		
+	
+	\begin{table}[H]
+		\begin{tabular}{|x{4.7cm}|x{4.8cm}|x{4.8cm}|}
+			\hline 
+			\rowcolor{tablebackground}
+			\color{white}\textbf{Laboratorio} & \color{white}\textbf{Tema}  & \color{white}\textbf{Duración}   \\
+			\hline 
+			\itemPracticeNumber & \itemTheme &    \\
+			\hline 
+		\end{tabular}
+	\end{table}
+	
+	\begin{table}[H]
+		\begin{tabular}{|x{4.7cm}|x{4.8cm}|x{4.8cm}|}
+			\hline 
+			\rowcolor{tablebackground}
+			\color{white}\textbf{Semestre académico} & \color{white}\textbf{Fecha de inicio}  & \color{white}\textbf{Fecha de entrega}   \\
+			\hline 
+			\itemAcademic & \itemInput &  \itemOutput  \\
+			\hline 
+		\end{tabular}
+	\end{table}
+	
+	\section{Tarea}
+	\begin{itemize}		
+		\item Se dejaron 3 ejercicios a realizar en java.
+		\item Utilizar Git para evidenciar su trabajo.
+		\item Enviar trabajo al profesor en un repositorio GitHub Privado, dándole permisos como colaborador.
+	\end{itemize}
+		
+	\section{Equipos, materiales y temas utilizados}
+	\begin{itemize}
+		\item Sistema Operativo Windows 10  ver. 22H2
+		\item Eclipse IDE, Visual studio
+		\item java 20.0.1
+		\item Git 2.40.1.
+		\item Cuenta en GitHub con el correo institucional.	
+	\end{itemize}
+	
+	\section{URL de Repositorio Github}
+	\begin{itemize}
+		\item URL del Repositorio GitHub para clonar o recuperar.
+		\item \url{https://github.com/MisaelMarron/eda-lab-b-23a.git}
+		\item URL para el laboratorio 02 en el Repositorio GitHub.
+		\item \url{https://github.com/MisaelMarron/eda-lab-b-23a/tree/main/lab02}
+	\end{itemize}
+	
+	\clearpage
+	\section{Actividades  : Ejercicios}
+	\begin{itemize}
+		\item Ejer1: En este ejercicio tenemos que realizar un programa que invierta una matriz de enteros , no importa su size.   
+		\item Ejer2: En este ejercicio tenemos que realizar un programa que rote una matriz desde el index que le damos ,y todos los elementos consiguientes se vayan para el inicio y los que estaban en el inicio se vayan al final del array. 
+		\item Ejer3: En este ejercicio tenemos que realizar un programa que imprima un triangulo recursivo.    
+		
+	\end{itemize}
+	
+	\subsection{Commits Importantes:}
+	\begin{lstlisting}[language=bash,caption={Mi primer commit es cuando agregué mi primer ejercicio.}][H]
+		commit e76c061fa9a169fac7b74777e74033bf762c4c39
+		Author: Misael Josias Marron Lope <mmarronl@unsa.edu.pe>
+		Date:   Fri May 19 22:45:58 2023 -0500
+
+    	Agregamos el ejer1 a la carpeta lab 2
+	\end{lstlisting}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/codigo1.jpg}
+	\end{figure}
+	
+	\clearpage
+	\begin{itemize}	
+		\item Ejecución del ejer01 en consola:
+	\end{itemize}	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{img/commit01.jpg}	
+	\end{figure}
+	
+	\begin{lstlisting}[language=bash,caption={Mi segundo commit es cuando agruegue el ejer2 terminado.}][H]
+		commit 38103842273a356c05ef375d151484870e560871
+		Author: Misael Josias Marron Lope <mmarronl@unsa.edu.pe>
+		Date:   Fri May 19 23:33:27 2023 -0500
+
+    	Agregamos el ejer 2
+	\end{lstlisting}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/codigo2.jpg}	
+	\end{figure}
+	
+	\clearpage
+	\begin{itemize}	
+		\item Ejecución del ejer02 en consola:
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/commit02.jpg}	
+	\end{figure}
+	
+	 \begin{lstlisting}[language=bash,caption={Mi tercer commit mas importante es cuando pushee mi tercer ejercicio.}][H]
+		commit e723f22e934833663bf9a6e3be729a3bd64909d2
+		Author: Misael Josias Marron Lope <mmarronl@unsa.edu.pe>
+		Date:   Fri May 19 23:50:25 2023 -0500
+
+    	Agregamos el ejer 3
+	\end{lstlisting}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/codigo3.jpg}	
+	\end{figure}
+	
+	\clearpage
+	\begin{itemize}	
+		\item Ejecución del ejer03 en consola:
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{img/commit03.jpg}	
+	\end{figure}
+	
+
+	\subsection{Estructura de laboratorio 02}
+	\begin{itemize}	
+		\item El contenido que se entrega en este laboratorio es el siguiente:
+	\end{itemize}
+	
+\begin{lstlisting}[style=ascii-tree]
+lab01/
+|--- codigo
+|   |--- Ejer01.java
+|   |--- ejer2.java
+|   |--- ejer3.txt
+|--- latex
+    |--- img
+    |   |--- logo_abet.png
+    |   |--- logo_episunsa.png
+    |   |--- logo_unsa.jpg
+    |   |--- codigo1.jpg
+    |   |--- codigo2.jpg
+    |   |--- codigo3.jpg
+    |   |--- commit01.jpg
+    |   |--- commit02.jpg
+    |   |--- commit03.jpg
+    |--- Lab02-MisaelMarron.pdf    
+    |--- Lab02-MisaelMarron.tex
+    
+\end{lstlisting}    
+
+\section{Preguntas: }
+	\begin{itemize}
+		\item En este caso no se dejaron preguntas.
+	\end{itemize}	
+		
+	\section{\textcolor{red}{Rúbricas}}
+	
+	\subsection{\textcolor{red}{Entregable Informe}}
+	\begin{table}[H]
+		\caption{Tipo de Informe}
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{1.5}% for the vertical padding
+		\begin{tabular}{|p{3cm}|p{12cm}|}
+			\hline
+			\multicolumn{2}{|c|}{\textbf{\textcolor{red}{Informe}}}  \\
+			\hline 
+			\textbf{\textcolor{red}{Latex}} & \textcolor{blue}{El informe está en formato PDF desde Latex,  con un formato limpio (buena presentación) y facil de leer.}   \\ 
+			\hline 
+			
+			
+		\end{tabular}
+	}
+	\end{table}
+	
+	\clearpage
+	
+	\subsection{\textcolor{red}{Rúbrica para el contenido del Informe y demostración}}
+	\begin{itemize}			
+		\item El alumno debe marcar o dejar en blanco en celdas de la columna \textbf{Checklist} si cumplio con el ítem correspondiente.
+		\item Si un alumno supera la fecha de entrega,  su calificación será sobre la nota mínima aprobada, siempre y cuando cumpla con todos lo items.
+		\item El alumno debe autocalificarse en la columna \textbf{Estudiante} de acuerdo a la siguiente tabla:
+	
+		\begin{table}[ht]
+			\caption{Niveles de desempeño}
+			\begin{center}
+			\begin{tabular}{ccccc}
+    			\hline
+    			 & \multicolumn{4}{c}{Nivel}\\
+    			\cline{1-5}
+    			\textbf{Puntos} & Insatisfactorio 25\%& En Proceso 50\% & Satisfactorio 75\% & Sobresaliente 100\%\\
+    			\textbf{2.0}&0.5&1.0&1.5&2.0\\
+    			\textbf{4.0}&1.0&2.0&3.0&4.0\\
+    		\hline
+			\end{tabular}
+		\end{center}
+	\end{table}	
+	
+	\end{itemize}
+	
+	\begin{table}[H]
+		\caption{Rúbrica para contenido del Informe y demostración}
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{1.5}% for the vertical padding
+		%\begin{center}
+		\begin{tabular}{|p{2.7cm}|p{7cm}|x{1.3cm}|p{1.2cm}|p{1.5cm}|p{1.1cm}|}
+			\hline
+    		\multicolumn{2}{|c|}{Contenido y demostración} & Puntos & Checklist & Estudiante & Profesor\\
+			\hline
+			\textbf{1. GitHub} & Hay enlace URL activo del directorio para el  laboratorio hacia su repositorio GitHub con código fuente terminado y fácil de revisar. &2 &X &2 & \\ 
+			\hline
+			\textbf{2. Commits} &  Hay capturas de pantalla de los commits más importantes con sus explicaciones detalladas. (El profesor puede preguntar para refrendar calificación). &4 &X &3 & \\ 
+			\hline 
+			\textbf{3. Código fuente} &  Hay porciones de código fuente importantes con numeración y explicaciones detalladas de sus funciones. &2 &X &2 & \\ 
+			\hline 
+			\textbf{4. Ejecución} & Se incluyen ejecuciones/pruebas del código fuente  explicadas gradualmente. &2 &X &1.5 & \\ 
+			\hline			
+			\textbf{5. Pregunta} & Se responde con completitud a la pregunta formulada en la tarea.  (El profesor puede preguntar para refrendar calificación).  &2 &X &1 & \\ 
+			\hline	
+			\textbf{6. Fechas} & Las fechas de modificación del código fuente estan dentro de los plazos de fecha de entrega establecidos. &2 &X &2 & \\ 
+			\hline 
+			\textbf{7. Ortografía} & El documento no muestra errores ortográficos. &2 &X &1.5 & \\ 
+			\hline 
+			\textbf{8. Madurez} & El Informe muestra de manera general una evolución de la madurez del código fuente,  explicaciones puntuales pero precisas y un acabado impecable.   (El profesor puede preguntar para refrendar calificación).  &4 &X &4 & \\ 
+			\hline
+			\multicolumn{2}{|c|}{\textbf{Total}} &20 & &17 & \\ 
+			\hline
+		\end{tabular}
+		%\end{center}
+		%\label{tab:multicol}
+		}
+	\end{table}
+	
+\clearpage
+
+\section{Referencias}
+\begin{itemize}			
+	\item \url{https://www.w3schools.com/java/default.asp}
+	\item \url{https://www.eclipse.org/downloads/packages/release/2022-03/r/eclipse-ide-enterprise-java-and-web-developers}
+	\item \url{https://www.w3schools.com/java/default.asp}
+\end{itemize}	
+	
+%\clearpage
+%\bibliographystyle{apalike}
+%\bibliographystyle{IEEEtranN}
+%\bibliography{bibliography}
+			
+\end{document}
