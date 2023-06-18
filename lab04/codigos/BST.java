@@ -36,7 +36,11 @@ public class BST<E extends Comparable<E>> {
     	}
     }
     
-    private Node<E> getMin() throws ExceptionIsEmpty{
+    public E getMin() throws ExceptionIsEmpty{
+    	E minData = findMin().getData();
+    	return minData;
+    }
+    private Node<E> findMin() throws ExceptionIsEmpty{
     	Node<E> current = this.root;
     	if (isEmpty()) 
     		throw new ExceptionIsEmpty("EL ARBOL ESTA VACIO");
@@ -47,9 +51,24 @@ public class BST<E extends Comparable<E>> {
     	return current;
     }
     
+    public E getMax() throws ExceptionIsEmpty{
+    	E maxData = findMax().getData();
+    	return maxData;
+    }
+    private Node<E> findMax() throws ExceptionIsEmpty{
+    	Node<E> current = this.root;
+    	if (isEmpty()) 
+    		throw new ExceptionIsEmpty("EL ARBOL ESTA VACIO");
+    	
+    	while (current.getRight() != null)
+    		current = current.getRight();
+    	
+    	return current;
+    }
+    
     public void insert(E x) throws ItemDuplicated {
     	this.root = insertNode(x, this.root);
-    	}
+    }
 
     private Node<E> insertNode(E x, Node<E> actual) throws ItemDuplicated {
     	Node<E> res = actual;
