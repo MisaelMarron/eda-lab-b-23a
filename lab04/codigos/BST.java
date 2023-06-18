@@ -1,5 +1,5 @@
 import java.util.*;
-import myExceptions.ItemDuplicated;
+import myExceptions.*;
 
 public class BST<E extends Comparable<E>> {
 	private Node<E> root; 
@@ -10,14 +10,38 @@ public class BST<E extends Comparable<E>> {
     }
 
     public boolean isEmpty() {
-        return root == null;
+        return this.root == null;
     }
+
+    public E search(E x) throws ExceptionNoFound {
+    	Node<E> res = searchNode(x, root);
+    	
+    	if(res == null)
+    		throw new ExceptionNoFound ("El dato "+ x + "no se encuentra");
+    		return res.getData();
+    	}
+    
+    private Node<E> searchNode(E x, Node<E> n){
+    	if (n == null) 
+    		return null;
+    	else {
+    		int resC = n.getData().compareTo(x);
+    		
+    		if (resC < 0) 
+    			return searchNode(x, n.getRight());
+    		else if (resC > 0) 
+    			return searchNode(x, n.getLeft());
+    	else 
+    		return n;
+    	}
+    }
+    
 
     public void insert(E x) throws ItemDuplicated {
     	this.root = insertNode(x, this.root);
     	}
-    
-    protected Node<E> insertNode(E x, Node<E> actual) throws ItemDuplicated {
+
+    private Node<E> insertNode(E x, Node<E> actual) throws ItemDuplicated {
     	Node<E> res = actual;
     	if (actual == null) {res = new Node<E>(x);}
     		
