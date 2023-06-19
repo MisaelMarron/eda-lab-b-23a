@@ -8,14 +8,14 @@ public class pruebas {
             BST<String> bst = new BST<>();
 
             // Insertar elementos en el árbol
-            bst.insert("C");
+            bst.insert("H");
+            bst.insert("O");
+            bst.insert("L");
             bst.insert("A");
-            bst.insert("E");
-            bst.insert("B");
-            bst.insert("D");
+            bst.insert("G");
 
             // Mostrar el árbol en orden
-            System.out.println("Árbol en orden:");
+            System.out.println("Arbol en orden:");
             bst.displayInOrder();
 
             // Buscar un elemento en el árbol
@@ -30,7 +30,7 @@ public class pruebas {
             // Obtener el valor mínimo del árbol
             try {
                 String minValue = bst.getMin();
-                System.out.println("Valor mínimo: " + minValue);
+                System.out.println("Valor minimo: " + minValue);
             } catch (ExceptionIsEmpty exception) {
                 System.out.println(exception.getMessage());
             }
@@ -38,7 +38,7 @@ public class pruebas {
             // Obtener el valor máximo del árbol
             try {
                 String maxValue = bst.getMax();
-                System.out.println("Valor máximo: " + maxValue);
+                System.out.println("Valor maximo: " + maxValue);
             } catch (ExceptionIsEmpty exception) {
                 System.out.println(exception.getMessage());
             }
@@ -71,7 +71,7 @@ public class pruebas {
             }
 
             // Mostrar el árbol en orden después de eliminar un elemento
-            System.out.println("Árbol en orden después de eliminar " + elementToRemove + ":");
+            System.out.println("Arbol en orden despuEs de eliminar " + elementToRemove + ":");
             bst.displayInOrder();
 
         } catch (ItemDuplicated exception) {

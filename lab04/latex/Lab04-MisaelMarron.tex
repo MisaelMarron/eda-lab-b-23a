@@ -48,9 +48,9 @@
 \newcommand{\itemSchool}{Escuela Profesional de Ingeniería de Sistemas}
 \newcommand{\itemAcademic}{2023 - A}
 \newcommand{\itemInput}{ 2023}
-\newcommand{\itemOutput}{5 junio 2023}
-\newcommand{\itemPracticeNumber}{03}
-\newcommand{\itemTheme}{Clases Genéricas}
+\newcommand{\itemOutput}{19 junio 2023}
+\newcommand{\itemPracticeNumber}{04}
+\newcommand{\itemTheme}{Arbol Binario}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -160,7 +160,7 @@
 	
 	\section{Tarea}
 	\begin{itemize}		
-		\item Implementa una Lista usando POO con tipos genéricos siguiendo los estándares de Java. (Los métodos para una lista).
+		\item Implementa una clase de arbol binario de busqueda.
 		\item Implemente una clase Node donde T es un tipo genérico, esta clase debe contener al menos dos propiedades.
 		\item Utilizar Git para evidenciar su trabajo.
 		\item Enviar trabajo al profesor en un repositorio GitHub Privado, dándole permisos como colaborador.
@@ -179,24 +179,24 @@
 	\begin{itemize}
 		\item URL del Repositorio GitHub para clonar o recuperar.
 		\item \url{https://github.com/MisaelMarron/eda-lab-b-23a.git}
-		\item URL para el laboratorio 02 en el Repositorio GitHub.
-		\item \url{https://github.com/MisaelMarron/eda-lab-b-23a/tree/main/lab03}
+		\item URL para el laboratorio 04 en el Repositorio GitHub.
+		\item \url{https://github.com/MisaelMarron/eda-lab-b-23a/tree/main/lab04}
 	\end{itemize}
 	
 	\clearpage
-	\section{Actividades  : La creacion de List y Nodo}
+	\section{Actividades  : La creacion de Arbol Binario de Busqueda}
 	\begin{itemize}
-		\item Tendremos que crear clases genericas con List usando metodos que se indican en el material proporcionado por el ingeniero Richard.     
+		\item Elabore un informe implementando Arboles Binarios de Busqueda con toda la lista de operaciones search(), getMin(), getMax(), parent(), son(), insert(), remove().     
 		
 	\end{itemize}
 	
 	\subsection{Commits Importantes:}
-	\begin{lstlisting}[language=bash,caption={Mi primer commit importante es cuando cree la clase lista y le agregue sus metodos de interface , para ser usados luego.}][H]
-		commit 1c27525bc83afc8eb2c28e2aaa978dd930a43ad6
+	\begin{lstlisting}[language=bash,caption={Mi primer commit importante es cuando agregue el metodo search .}][H]
+		commit 42fe67b8679d688fa7f08e11717e9f3bff142b00
 		Author: Misael Marron <mmarronl@unsa.edu.pe>
-		Date:   Tue May 30 11:47:10 2023 -0500
+		Date:   Sun Jun 18 18:38:45 2023 -0500
 
-    	Agregamos la clase lista con sus metodos
+    	agregamos el metodo search
 	\end{lstlisting}
 	
 	\begin{figure}[H]
@@ -205,12 +205,13 @@
 	\end{figure}
 	
 	
-	\begin{lstlisting}[language=bash,caption={Mi segundo commit importante es cuando cambie la clase lista y agregue la clase nodo.}][H]
-		commit 024e48665cbea91cd1e0153dee2db4d0d92ab6b1
+		
+	 \begin{lstlisting}[language=bash,caption={Mi segundo commit mas importante es cuando agregue los metodos getmin y get max .}][H]
+		commit 6cd58bbc5d4576e099b38a36c71515252c058186
 		Author: Misael Marron <mmarronl@unsa.edu.pe>
-		Date:   Tue May 30 11:53:27 2023 -0500
+		Date:   Sun Jun 18 18:48:54 2023 -0500
 
-	    agregamos la clase Nodo y cambiamos metodos
+    	Corregimos los metodos getMin() y getMax()
 	\end{lstlisting}
 	
 	\begin{figure}[H]
@@ -222,47 +223,33 @@
 		\centering
 		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/codigo2b.jpg}	
 	\end{figure}
-		
-	 \begin{lstlisting}[language=bash,caption={Mi tercer commit mas importante es cuando agregue ListaUsar y complete con metodos.}][H]
-		commit 8bf9e781c0d0140be15c5d194b5e0b68a5a89096
-		Author: Misael Marron <mmarronl@unsa.edu.pe>
-		Date:   Tue May 30 11:59:05 2023 -0500
-
-   		Agregamos los metodos necesarios
-	\end{lstlisting}
-	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/codigo3.jpg}	
-	\end{figure}
-	
 	\clearpage
-	\begin{lstlisting}[language=bash,caption={Mi cuarto commit es cuando termine todo el lab03 y agregue una ejecucion en una clase llamada Pruebas.}][H]
-		commit a5ec5364040161df3d30695f143e38e2e6cd1a6c
+	\begin{lstlisting}[language=bash,caption={Mi tercer commit es cuando termine y agregue la ejecucion.}][H]
+		commit 8ef7ab41083248b14c74b79d6fda92a19352eb34 
 		Author: Misael Marron <mmarronl@unsa.edu.pe>
-		Date:   Tue May 30 12:06:23 2023 -0500
+		Date:   Sun Jun 18 21:21:14 2023 -0500
 
-	    Agregamos Pruebas para hacer pruebas y terminamos
+    	Agregamos las pruebas
 	\end{lstlisting}
 
 `	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/codigo4.jpg}	
+		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/codigo3.jpg}	
 	\end{figure}
 	
 	
 	\begin{itemize}	
-		\item Ejecución en consola del lab03:
+		\item Ejecución del lab04:
 	\end{itemize}
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/commit01.jpg}	
+		\includegraphics[width=0.8\textwidth,keepaspectratio]{img/ejecucion.jpg}	
 	\end{figure}
 	
 	
 	
-	\subsection{Estructura de laboratorio 03}
+	\subsection{Estructura de laboratorio 04}
 	\begin{itemize}	
 		\item El contenido que se entrega en este laboratorio es el siguiente:
 	\end{itemize}
@@ -270,10 +257,9 @@
 \begin{lstlisting}[style=ascii-tree]
 lab03/
 |--- codigo
-|   |--- Lista.java
-|   |--- ListaUsar.java
-|   |--- Nodo.java
-|   |--- Pruebas.java
+|   |--- Node.java
+|   |--- pruebas.java
+|   |--- BST.java
 |--- latex
     |--- img
     |   |--- logo_abet.png
@@ -283,16 +269,22 @@ lab03/
     |   |--- codigo2.jpg
     |   |--- codigo2b.jpg
     |   |--- codigo3.jpg
-    |   |--- codigo4.jpg
-    |   |--- commit01.jpg
-    |--- Lab03-MisaelMarron.pdf    
-    |--- Lab03-MisaelMarron.tex
+    |   |--- ejecucion.jpg
+    |--- Lab04-MisaelMarron.pdf    
+    |--- Lab04-MisaelMarron.tex
     
 \end{lstlisting}    
 
 \section{Preguntas: }
 	\begin{itemize}
-		\item En este caso no se dejaron preguntas.
+		\item ¿Explique como es el algoritmo que implemento para obtener el  arbol binario de busqueda con
+la libreria Graph Stream? Recuerde que pueden haber operaciones sobre el BST.
+	\item El algoritmo para mostrar un árbol binario de búsqueda con Graph Stream consta de los siguientes pasos:
+
+Crear un objeto Graph para representar el grafo.
+Definir las características visuales del grafo.
+Agregar nodos y aristas al grafo recursivamente.
+Mostrar el grafo en una ventana utilizando el visor de Graph Stream.
 	\end{itemize}	
 		
 	\section{\textcolor{red}{Rúbricas}}
