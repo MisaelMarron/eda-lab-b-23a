@@ -66,6 +66,37 @@ public class BST<E extends Comparable<E>> {
     	return current;
     }
     
+    public E parent(E data) throws ExceptionIsEmpty, ExceptionNoFound{
+    	if (isEmpty())
+    		throw new ExceptionIsEmpty("EL ARBOL ESTA VACIO");
+    	Node<E> parent = getParent(data,this.root);
+    	return parent.getData();
+    }
+    
+    private Node<E> getParent(E data,Node<E> current) throws ExceptionNoFound{
+    	if (searchNode(data,current)== null)
+    	throw new ExceptionNoFound ("El dato no se encuentra");
+    	
+    	Node parentNode = null;
+    	
+        while (current != null) {
+            if (current.getData().compareTo(data)==-1) {
+                parentNode = current;
+                current = current.getLeft();
+            } else if (current.getData().compareTo(data)==1) {
+                parentNode = current;
+                current = current.getRight();
+            } else {
+                break;
+            }
+        }
+        
+        return parentNode;
+    }
+    	
+ 
+    
+    
     public void insert(E x) throws ItemDuplicated {
     	this.root = insertNode(x, this.root);
     }
