@@ -94,8 +94,20 @@ public class BST<E extends Comparable<E>> {
         return parentNode;
     }
     	
- 
-    
+    public E son(E data) throws ExceptionIsEmpty, ExceptionNoFound{
+    	if (isEmpty())
+    		throw new ExceptionIsEmpty("El ARBOL ESTA VACIO");
+    	
+    	return (getSon(data , root)).getData();
+    }
+    private Node<E> getSon(E data, Node<E> current) {
+    	current= searchNode(data,current);
+    	
+    	if (current.getRight() == null)
+    		return current.getLeft();
+    	else 
+    		return current.getRight();
+    }
     
     public void insert(E x) throws ItemDuplicated {
     	this.root = insertNode(x, this.root);
