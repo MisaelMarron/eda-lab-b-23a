@@ -164,8 +164,29 @@ public class BST<E extends Comparable<E>> {
     		return actual;
     		}
     
-    
-    
+    	public void displayInOrder() {
+    	    displayInOrder(root);
+    	    System.out.println();
+    	}
+
+    	private void displayInOrder(Node<E> currentNode) {
+    	    if (currentNode != null) {
+    	        displayInOrder(currentNode.getLeft());
+    	        System.out.print(currentNode.getData() + " ");
+    	        displayInOrder(currentNode.getRight());
+    	    }
+    	}
+    	 public void input(String word) throws ItemDuplicated {
+    	        if (word == null || word.isEmpty()) {
+    	            throw new IllegalArgumentException("La palabra no puede ser nula o vacía.");
+    	        }
+
+    	        for (int i = 0; i < word.length(); i++) {
+    	            char letter = word.charAt(i);
+    	            int asciiValue = (int) letter;
+    	            insert((E) Character.toString(letter));
+    	        }
+    	    }
     
     
     

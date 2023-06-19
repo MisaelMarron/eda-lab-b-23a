@@ -2,3 +2,4 @@
 *.prject
 *.classpath
 *.classpath
+/bin/
