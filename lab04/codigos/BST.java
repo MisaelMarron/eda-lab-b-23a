@@ -1,6 +1,4 @@
-import java.util.*;
 import myExceptions.*;
-
 public class BST<E extends Comparable<E>> {
 	private Node<E> root; 
 	
@@ -77,7 +75,7 @@ public class BST<E extends Comparable<E>> {
     	if (searchNode(data,current)== null)
     	throw new ExceptionNoFound ("El dato no se encuentra");
     	
-    	Node parentNode = null;
+    	Node<E> parentNode = null;
     	
         while (current != null) {
             if (current.getData().compareTo(data)==-1) {
@@ -128,6 +126,51 @@ public class BST<E extends Comparable<E>> {
     	}
     	return res;
     }
+    public void remove(E x) throws ExceptionNoFound {
+    	this.root = removeNode(x, this.root);
+    	}
+    	protected Node<E> removeNode(E x, Node<E> actual) throws ExceptionNoFound {
+    	Node<E> res = actual;
+    	if (actual == null) 
+    		throw new ExceptionNoFound(x + "no esta");
+    	int resC = actual.getData().compareTo(x);
+    	
+    	if (resC < 0) 
+    		res.setRight(removeNode(x, actual.getRight()));
+    	else if (resC > 0) 
+    		res.setLeft(removeNode(x, actual.getLeft()));
+    	else if(actual.getLeft() != null && actual.getRight() != null) {
+    		res.setData(actual.getRight().getData());
+    		res.setRight(minRemove(actual.getRight()));
+    	} else {
+    		res = (actual.getLeft() != null) ? actual.getLeft() : actual.getRight();
+    	}
+    		return res;
+    	}
+    	public E minRemove() throws ExceptionIsEmpty {
+    		E min = getMin(); 
+    		this.root = minRemove(this.root);
+    		
+    		return min;
+    		}
+    		
+    	protected Node<E> minRemove(Node<E> actual) {
+    		if (actual.getLeft() != null) { 
+    		actual.setLeft(minRemove(actual.getLeft())); 
+    		}
+    		else { 
+    		actual = actual.getRight();
+    		}
+    		return actual;
+    		}
+    
+    
+    
+    
+    
+    
+    
+    
 }
 	
 	
