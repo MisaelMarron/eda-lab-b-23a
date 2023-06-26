@@ -162,5 +162,28 @@ public class AVL<T extends Comparable<T>> {
         else
             return searchKey(node.getRight(), key);
     }
-
+   
+    public T getMin() {
+        if (root == null)
+            throw new NoSuchElementException("El arbol esta vacio");
+        return findMin(root).getClave();
+    }
+    
+    private Nodo<T> findMin(Nodo<T> node) {
+        while (node.getLeft() != null)
+            node = node.getLeft();
+        return node;
+    }
+    
+    public T getMax() {
+        if (root == null)
+            throw new NoSuchElementException("El arbol esta vacio");
+        return findMax(root).getClave();
+    }
+     
+    private Nodo<T> findMax(Nodo<T> node) {
+        while (node.getRight() != null)
+            node = node.getRight();
+        return node;
+    }
 }
