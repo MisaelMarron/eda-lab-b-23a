@@ -256,5 +256,53 @@ public class AVL<T extends Comparable<T>> {
             inOrderTraversal(node.getRight());
         }
     }
-  
+    
+    public void imprimirArbol() {
+        Graph graph = new SingleGraph("Árbol AVL");
+        agregarNodos(graph, root, 0, 0);
+        agregarAristas(graph, root);
+        System.setProperty("org.graphstream.ui", "swing");
+        Viewer viewer = graph.display();
+        viewer.disableAutoLayout();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+
+
+    }
+    public void cerrarArbol(){
+         Graph graph = new SingleGraph("Árbol AVL");
+        agregarNodos(graph, root, 0, 0);
+        agregarAristas(graph, root);
+        System.setProperty("org.graphstream.ui", "swing");
+        Viewer viewer = graph.display();  
+        viewer.disableAutoLayout();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.EXIT);
+            
+    }
+
+     private void agregarNodos(Graph graph, Nodo<T> nodo, double x, double y) {
+        if (nodo != null) {
+            Node node = graph.addNode(nodo.getClave().toString());
+            node.setAttribute("ui.label", nodo.getClave().toString());
+            node.setAttribute("ui.style", "text-size: 15px; text-alignment: at-right; text-background-mode: rounded-box; text-background-color: #ffffffbb; text-color: #000000; ");
+            node.setAttribute("xy", x, y);
+            agregarNodos(graph, nodo.left, x - 1.0, y - 1.0); // 
+            agregarNodos(graph, nodo.right, x + 1.0, y - 1.0);
+        }
+    }
+
+    private void agregarAristas(Graph graph, Nodo<T> nodo) {
+        if (nodo != null) {
+            if (nodo.getLeft() != null) {
+                Edge edge = graph.addEdge(nodo.getClave() + "-" + nodo.getLeft().getClave(), nodo.getClave().toString(), nodo.getLeft().getClave().toString());
+                edge.setAttribute("ui.style", "fill-color: black;");
+            }
+            if (nodo.getRight() != null) {
+                Edge edge = graph.addEdge(nodo.getClave() + "-" + nodo.getRight().getClave(), nodo.getClave().toString(), nodo.getRight().getClave().toString());
+                edge.setAttribute("ui.style", "fill-color: black;");
+            }
+
+            agregarAristas(graph, nodo.getLeft());
+            agregarAristas(graph, nodo.getRight());
+        }
+    }
 }
