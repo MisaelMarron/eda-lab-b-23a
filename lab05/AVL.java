@@ -49,7 +49,7 @@ public class AVL<T extends Comparable<T>> {
         if (balance < -1 && key.compareTo(node.getRight().getClave()) > 0)
             return rotateLeft(node);
        if (balance > 1 && key.compareTo(node.getLeft().getClave()) > 0) {
-            node.setLeft(rotateLeft(node.left));
+            node.setLeft(rotateLeft(node.getLeft()));
             return rotateRight(node);
         }
         if (balance < -1 && key.compareTo(node.getRight().getClave()) < 0) {
@@ -77,6 +77,71 @@ public class AVL<T extends Comparable<T>> {
         y.setNivel(Math.max(y.getLeft().getNivel(),y.getRight().getNivel()) + 1);
         return y;
     }
+ 
+    public void remove(T key) {
+        this.root = removeNode(this.root, key);
+    }
     
+    private Nodo<T> removeNode(Nodo<T> root, T key) {
+        if (root == null)
+            return root;
+        
+        int cmp = key.compareTo(root.getClave());
+        if (cmp < 0)
+            root.setLeft(removeNode(root.getLeft(), key));
+        else if (cmp > 0)
+            root.setRight(removeNode(root.getRight(), key));
+        else {
+            if (root.getCount() > 1) {
+                root.setCount(root.getCount()-1);
+                return root;
+            }
+            if ((root.getLeft() == null) || (root.getRight() == null)) {
+                Nodo<T> temp = null;
+                if (temp == root.getLeft())
+                    temp = root.getRight();
+                else
+                    temp = root.getLeft();
+
+                if (temp == null) {
+                    temp = root;
+                    root = null;
+                } else
+                    root = temp;
+            } else {
+                Nodo<T> temp = minValueNode(root.getRight());
+                root.setClave(temp.getClave());
+                root.setCount(temp.getCount());
+                temp.setCount(1);
+                root.setRight(removeNode(root.getRight(), temp.getClave()));
+            }
+        }
+        
+        if (root == null)
+            return root;
+        
+        root.setNivel(1 + Math.max(root.getLeft().getNivel(), root.getRight().getNivel()));
+        int balance = balance(root);
+        if (balance > 1 && balance(root.getLeft()) >= 0)
+            return rotateRight(root);
+        if (balance > 1 && balance(root.getLeft()) < 0) {
+            root.setLeft(rotateLeft(root.getLeft()));
+            return rotateRight(root);
+        }
+        if (balance < -1 && balance(root.getRight()) <= 0)
+            return rotateLeft(root);
+        if (balance < -1 && balance(root.getRight()) > 0) {
+            root.setRight(rotateRight(root.getRight()));
+            return rotateLeft(root);
+        }
+        return root;
+    }
+    
+    private Nodo<T> minValueNode(Nodo<T> node) {
+        Nodo<T> current = node ;
+        while (current.getLeft() != null)
+            current = current.getLeft();
+        return current;
+    }
 
 }
