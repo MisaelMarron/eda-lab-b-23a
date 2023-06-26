@@ -1,3 +1,4 @@
-/ArbolAVL.class
-/Nodo.class
-/Test.class
+*.jar
+*.classpath
+*.class
+.project
