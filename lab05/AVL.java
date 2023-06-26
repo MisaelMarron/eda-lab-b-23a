@@ -143,5 +143,24 @@ public class AVL<T extends Comparable<T>> {
             current = current.getLeft();
         return current;
     }
+    
+    public boolean search(T key) {
+        return searchKey(this.root, key);
+    }
+    
+    private boolean searchKey(Nodo<T> node, T key) {
+        if (node == null)
+            return false;
+
+        int cmp = key.compareTo(node.getClave());
+
+        if (cmp == 0)
+            return true;
+
+        if (cmp < 0)
+            return searchKey(node.getLeft(), key);
+        else
+            return searchKey(node.getRight(), key);
+    }
 
 }
