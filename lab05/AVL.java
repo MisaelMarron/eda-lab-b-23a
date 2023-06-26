@@ -1,7 +1,25 @@
 import java.util.*;
+
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.ui.view.Viewer;
+
+
+class Nodo<T extends Comparable<T>> {
+    T Clave;
+    int cont;
+    int Nivel;
+    Nodo<T> izq, der;
+
+    Nodo(T value) {
+        Clave = value;
+        cont = 1;
+        Nivel = 1;
+    }
+    public T getClave() {
+        return Clave;
+    }
+}
 
 
 public class AVL<T extends Comparable<T>> {
@@ -11,97 +29,73 @@ public class AVL<T extends Comparable<T>> {
         root = null;
     }
     
-    
-    private int nivel(Nodo<T> nodo) {
+    private int Nivel(Nodo<T> nodo) {
         if (nodo== null)
             return 0;
-        return nodo.getNivel();
+        return nodo.Nivel;
     }
     
-    
-    private int balance(Nodo<T> nodo) {
+    private int balanceFactor(Nodo<T> nodo) {
         if (nodo == null)
             return 0;
-        return nivel(nodo.getLeft())-nivel(nodo.getRight());
+        return Nivel(nodo.izq) - Nivel(nodo.der);
     }
 
     
-    public void insert(T key) {
-        this.root = insertNode(this.root, key);
+    public void insert(T Clave) {
+        root = insertNode(root, Clave);
     }
-    
-    private Nodo<T> insertNode(Nodo<T> node, T key) {
+   
+    private Nodo<T> insertNode(Nodo<T> node, T Clave) {
         if (node == null)
-            return new Nodo<T>(key);
-        int cmp = key.compareTo(node.getClave());
-        if (cmp < 0) {
-            node.setLeft(insertNode(node.getLeft(), key));
-            node.setRight(insertNode(node.getRight(), key));
+            return new Nodo<>(Clave);
+        int cmp = Clave.compareTo(node.Clave);
+        if (cmp < 0)
+            node.izq = insertNode(node.izq, Clave);
+        else if (cmp > 0)
+            node.der = insertNode(node.der, Clave);
+        else
+            node.cont++;
+        node.Nivel = 1 + Math.max(Nivel(node.izq), Nivel(node.der));
+        int balance = balanceFactor(node);
+        if (balance > 1 && Clave.compareTo(node.izq.Clave) < 0)
+            return rotateder(node);
+        if (balance < -1 && Clave.compareTo(node.der.Clave) > 0)
+            return rotateizq(node);
+       if (balance > 1 && Clave.compareTo(node.izq.Clave) > 0) {
+            node.izq = rotateizq(node.izq);
+            return rotateder(node);
         }
-        else 
-            node.setCount(node.getCount()+1);
-        
-        node.setNivel(1 + Math.max(node.getLeft().getNivel(),node.getRight().getNivel()));
-        int balance = balance(node);
-        
-        if (balance > 1 && key.compareTo(node.getLeft().getClave()) < 0)
-            return rotateRight(node);
-        if (balance < -1 && key.compareTo(node.getRight().getClave()) > 0)
-            return rotateLeft(node);
-       if (balance > 1 && key.compareTo(node.getLeft().getClave()) > 0) {
-            node.setLeft(rotateLeft(node.getLeft()));
-            return rotateRight(node);
-        }
-        if (balance < -1 && key.compareTo(node.getRight().getClave()) < 0) {
-            node.setRight(rotateRight(node.getRight()));
-            return rotateLeft(node);
+        if (balance < -1 && Clave.compareTo(node.der.Clave) < 0) {
+            node.der = rotateder(node.der);
+            return rotateizq(node);
         }
         return node;
     }
-    private Nodo<T> rotateRight(Nodo<T> y) {
-        Nodo<T> x = y.getLeft();
-        Nodo<T> T2 = x.getRight();
-        x.setRight(y);
-        y.setLeft(T2);
-        y.setNivel(Math.max(y.getLeft().getNivel(),y.getRight().getNivel()) + 1);
-        x.setNivel(Math.max(x.getLeft().getNivel(),x.getRight().getNivel()) + 1);
-        return x;
-    }
-   
-    private Nodo<T> rotateLeft(Nodo<T> x) {
-        Nodo<T> y = x.getRight();
-        Nodo<T> T2 = y.getLeft();
-        y.setLeft(x);
-        x.setRight(T2);
-        x.setNivel(Math.max(x.getLeft().getNivel(),x.getRight().getNivel()) + 1);
-        y.setNivel(Math.max(y.getLeft().getNivel(),y.getRight().getNivel()) + 1);
-        return y;
-    }
- 
-    public void remove(T key) {
-        this.root = removeNode(this.root, key);
-    }
     
-    private Nodo<T> removeNode(Nodo<T> root, T key) {
+    public void remove(T Clave) {
+        root = removeNode(root, Clave);
+    }
+     
+    private Nodo<T> removeNode(Nodo<T> root, T Clave) {
         if (root == null)
             return root;
-        
-        int cmp = key.compareTo(root.getClave());
+        int cmp = Clave.compareTo(root.Clave);
         if (cmp < 0)
-            root.setLeft(removeNode(root.getLeft(), key));
+            root.izq = removeNode(root.izq, Clave);
         else if (cmp > 0)
-            root.setRight(removeNode(root.getRight(), key));
+            root.der = removeNode(root.der, Clave);
         else {
-            if (root.getCount() > 1) {
-                root.setCount(root.getCount()-1);
+            if (root.cont > 1) {
+                root.cont--;
                 return root;
             }
-            if ((root.getLeft() == null) || (root.getRight() == null)) {
+            if ((root.izq == null) || (root.der == null)) {
                 Nodo<T> temp = null;
-                if (temp == root.getLeft())
-                    temp = root.getRight();
+                if (temp == root.izq)
+                    temp = root.der;
                 else
-                    temp = root.getLeft();
+                    temp = root.izq;
 
                 if (temp == null) {
                     temp = root;
@@ -109,200 +103,221 @@ public class AVL<T extends Comparable<T>> {
                 } else
                     root = temp;
             } else {
-                Nodo<T> temp = minValueNode(root.getRight());
-                root.setClave(temp.getClave());
-                root.setCount(temp.getCount());
-                temp.setCount(1);
-                root.setRight(removeNode(root.getRight(), temp.getClave()));
+                Nodo<T> temp = minValueNode(root.der);
+                root.Clave = temp.Clave;
+                root.cont = temp.cont;
+                temp.cont = 1;
+                root.der = removeNode(root.der, temp.Clave);
             }
         }
-        
         if (root == null)
             return root;
-        
-        root.setNivel(1 + Math.max(root.getLeft().getNivel(), root.getRight().getNivel()));
-        int balance = balance(root);
-        if (balance > 1 && balance(root.getLeft()) >= 0)
-            return rotateRight(root);
-        if (balance > 1 && balance(root.getLeft()) < 0) {
-            root.setLeft(rotateLeft(root.getLeft()));
-            return rotateRight(root);
+        root.Nivel = 1 + Math.max(Nivel(root.izq), Nivel(root.der));
+        int balance = balanceFactor(root);
+        if (balance > 1 && balanceFactor(root.izq) >= 0)
+            return rotateder(root);
+        if (balance > 1 && balanceFactor(root.izq) < 0) {
+            root.izq = rotateizq(root.izq);
+            return rotateder(root);
         }
-        if (balance < -1 && balance(root.getRight()) <= 0)
-            return rotateLeft(root);
-        if (balance < -1 && balance(root.getRight()) > 0) {
-            root.setRight(rotateRight(root.getRight()));
-            return rotateLeft(root);
+        if (balance < -1 && balanceFactor(root.der) <= 0)
+            return rotateizq(root);
+        if (balance < -1 && balanceFactor(root.der) > 0) {
+            root.der = rotateder(root.der);
+            return rotateizq(root);
         }
         return root;
     }
+       
+    private Nodo<T> rotateder(Nodo<T> y) {
+        Nodo<T> x = y.izq;
+        Nodo<T> T2 = x.der;
+        x.der = y;
+        y.izq = T2;
+        y.Nivel = Math.max(Nivel(y.izq), Nivel(y.der)) + 1;
+        x.Nivel = Math.max(Nivel(x.izq), Nivel(x.der)) + 1;
+        return x;
+    }
+   
+    private Nodo<T> rotateizq(Nodo<T> x) {
+        Nodo<T> y = x.der;
+        Nodo<T> T2 = y.izq;
+        y.izq = x;
+        x.der = T2;
+        x.Nivel = Math.max(Nivel(x.izq), Nivel(x.der)) + 1;
+        y.Nivel = Math.max(Nivel(y.izq), Nivel(y.der)) + 1;
+        return y;
+    }
     
     private Nodo<T> minValueNode(Nodo<T> node) {
-        Nodo<T> current = node ;
-        while (current.getLeft() != null)
-            current = current.getLeft();
+        Nodo<T> current = node;
+        while (current.izq != null)
+            current = current.izq;
         return current;
     }
     
-    public boolean search(T key) {
-        return searchKey(this.root, key);
+    public boolean search(T Clave) {
+        return searchClave(root, Clave);
     }
     
-    private boolean searchKey(Nodo<T> node, T key) {
+    private boolean searchClave(Nodo<T> node, T Clave) {
         if (node == null)
             return false;
 
-        int cmp = key.compareTo(node.getClave());
+        int cmp = Clave.compareTo(node.Clave);
 
         if (cmp == 0)
             return true;
 
         if (cmp < 0)
-            return searchKey(node.getLeft(), key);
+            return searchClave(node.izq, Clave);
         else
-            return searchKey(node.getRight(), key);
+            return searchClave(node.der, Clave);
     }
-   
+    
     public T getMin() {
         if (root == null)
-            throw new NoSuchElementException("El arbol esta vacio");
-        return findMin(root).getClave();
+            throw new NoSuchElementException("El árbol está vacío");
+        return findMin(root).Clave;
     }
-    
+
     private Nodo<T> findMin(Nodo<T> node) {
-        while (node.getLeft() != null)
-            node = node.getLeft();
+        while (node.izq != null)
+            node = node.izq;
         return node;
     }
-    
+
     public T getMax() {
         if (root == null)
-            throw new NoSuchElementException("El arbol esta vacio");
-        return findMax(root).getClave();
+            throw new NoSuchElementException("El árbol está vacío");
+        return findMax(root).Clave;
     }
-     
+
     private Nodo<T> findMax(Nodo<T> node) {
-        while (node.getRight() != null)
-            node = node.getRight();
+        while (node.der != null)
+            node = node.der;
         return node;
     }
-  
-    public T parent(T key) {
-        Nodo<T> parent = findParent(this.root, key);
+
+    public T parent(T Clave) {
+        Nodo<T> parent = findParent(root, Clave);
         if (parent == null)
             throw new NoSuchElementException("La clave no existe o es la raíz");
-        return parent.getClave();
+        return parent.Clave;
     }
-    
-    private Nodo<T> findParent(Nodo<T> node, T key) {
-        if (node == null || node.getClave().equals(key))
+
+    private Nodo<T> findParent(Nodo<T> node, T Clave) {
+        if (node == null || node.Clave.equals(Clave))
             return null;
 
-        int cmpLeft = (node.getLeft() != null) ? key.compareTo(node.getLeft().getClave()) : -1;
-        int cmpRight = (node.getRight() != null) ? key.compareTo(node.getRight().getClave()) : 1;
+        int cmpizq = (node.izq != null) ? Clave.compareTo(node.izq.Clave) : -1;
+        int cmpder = (node.der != null) ? Clave.compareTo(node.der.Clave) : 1;
 
-        if (cmpLeft == 0 || cmpRight == 0)
+        if (cmpizq == 0 || cmpder == 0)
             return node;
 
-        if (cmpLeft < 0)
-            return findParent(node.getLeft(), key);
+        if (cmpizq < 0)
+            return findParent(node.izq, Clave);
         else
-            return findParent(node.getRight(), key);
+            return findParent(node.der, Clave);
     }
-    
-    public List<T> children(T key) {
-    Nodo<T> node = findNode(this.root, key);
+
+    public List<T> children(T Clave) {
+    Nodo<T> node = findNode(root, Clave);
     if (node == null)
         throw new NoSuchElementException("La clave no existe");
 
     List<T> children = new ArrayList<>();
-    if (node.getLeft() != null)
-        children.add(node.getLeft().getClave());
-    if (node.getRight() != null)
-        children.add(node.getRight().getClave());
+    if (node.izq != null)
+        children.add(node.izq.Clave);
+    if (node.der != null)
+        children.add(node.der.Clave);
 
     return children;
     }
-    
-    public boolean isLeaf(T key) {
-        Nodo<T> node = findNode(this.root, key);
+
+    public boolean isLeaf(T Clave) {
+        Nodo<T> node = findNode(root, Clave);
         if (node == null)
             throw new NoSuchElementException("La clave no existe");
-        return (node.getLeft() == null && node.getRight() == null);
+        return (node.izq == null && node.der == null);
     }
-    
-    private Nodo<T> findNode(Nodo<T> node, T key) {
-        if (node == null || node.getClave().equals(key))
+
+    private Nodo<T> findNode(Nodo<T> node, T Clave) {
+        if (node == null || node.Clave.equals(Clave))
             return node;
 
-        int cmp = key.compareTo(node.getClave());
+        int cmp = Clave.compareTo(node.Clave);
 
         if (cmp < 0)
-            return findNode(node.getLeft(), key);
+            return findNode(node.izq, Clave);
         else
-            return findNode(node.getRight(), key);
+            return findNode(node.der, Clave);
     }
-    
+
     public void inOrderTraversal() {
-        inOrderTraversal(this.root);
+        inOrderTraversal(root);
     }
-     
+
     private void inOrderTraversal(Nodo<T> node) {
         if (node != null) {
-            inOrderTraversal(node.getLeft());
-            for (int i = 0; i < node.getCount(); i++) {
-                System.out.print(node.getClave() + " ");
+            inOrderTraversal(node.izq);
+            for (int i = 0; i < node.cont; i++) {
+                System.out.print(node.Clave + " ");
             }
-            inOrderTraversal(node.getRight());
+            inOrderTraversal(node.der);
         }
     }
     
+
     public void imprimirArbol() {
-        Graph graph = new SingleGraph("Árbol AVL");
-        agregarNodos(graph, root, 0, 0);
-        agregarAristas(graph, root);
-        System.setProperty("org.graphstream.ui", "swing");
-        Viewer viewer = graph.display();
-        viewer.disableAutoLayout();
-        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+    Graph graph = new SingleGraph("Árbol AVL");
+    agregarNodos(graph, root, 0, 0);
+    agregarAristas(graph, root);
+    System.setProperty("org.graphstream.ui", "swing");
+    Viewer viewer = graph.display();
+    viewer.disableAutoLayout();
+    viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
 
 
+}
+public void cerrarArbol(){
+     Graph graph = new SingleGraph("Árbol AVL");
+    agregarNodos(graph, root, 0, 0);
+    agregarAristas(graph, root);
+    System.setProperty("org.graphstream.ui", "swing");
+    Viewer viewer = graph.display();  
+    viewer.disableAutoLayout();
+    viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.EXIT);
+        
+}
+
+ private void agregarNodos(Graph graph, Nodo<T> nodo, double x, double y) {
+    if (nodo != null) {
+        Node node = graph.addNode(nodo.Clave.toString());
+        node.setAttribute("ui.label", nodo.Clave.toString());
+        node.setAttribute("ui.style", "text-size: 30px; text-alignment: at-right; text-background-mode: rounded-box; text-background-color: #ffffffbb; text-color: #000000; ");
+        node.setAttribute("xy", x, y);
+        agregarNodos(graph, nodo.izq, x - 1.0, y - 1.0); 
+        agregarNodos(graph, nodo.der, x + 1.0, y - 1.0);
     }
-    public void cerrarArbol(){
-         Graph graph = new SingleGraph("Árbol AVL");
-        agregarNodos(graph, root, 0, 0);
-        agregarAristas(graph, root);
-        System.setProperty("org.graphstream.ui", "swing");
-        Viewer viewer = graph.display();  
-        viewer.disableAutoLayout();
-        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.EXIT);
-            
-    }
+}
 
-     private void agregarNodos(Graph graph, Nodo<T> nodo, double x, double y) {
-        if (nodo != null) {
-            Node node = graph.addNode(nodo.getClave().toString());
-            node.setAttribute("ui.label", nodo.getClave().toString());
-            node.setAttribute("ui.style", "text-size: 15px; text-alignment: at-right; text-background-mode: rounded-box; text-background-color: #ffffffbb; text-color: #000000; ");
-            node.setAttribute("xy", x, y);
-            agregarNodos(graph, nodo.left, x - 1.0, y - 1.0); // 
-            agregarNodos(graph, nodo.right, x + 1.0, y - 1.0);
+private void agregarAristas(Graph graph, Nodo<T> nodo) {
+    if (nodo != null) {
+        if (nodo.izq != null) {
+            Edge edge = graph.addEdge(nodo.Clave + "-" + nodo.izq.Clave, nodo.Clave.toString(), nodo.izq.Clave.toString());
+            edge.setAttribute("ui.style", "fill-color: black;");
         }
-    }
-
-    private void agregarAristas(Graph graph, Nodo<T> nodo) {
-        if (nodo != null) {
-            if (nodo.getLeft() != null) {
-                Edge edge = graph.addEdge(nodo.getClave() + "-" + nodo.getLeft().getClave(), nodo.getClave().toString(), nodo.getLeft().getClave().toString());
-                edge.setAttribute("ui.style", "fill-color: black;");
-            }
-            if (nodo.getRight() != null) {
-                Edge edge = graph.addEdge(nodo.getClave() + "-" + nodo.getRight().getClave(), nodo.getClave().toString(), nodo.getRight().getClave().toString());
-                edge.setAttribute("ui.style", "fill-color: black;");
-            }
-
-            agregarAristas(graph, nodo.getLeft());
-            agregarAristas(graph, nodo.getRight());
+        if (nodo.der != null) {
+            Edge edge = graph.addEdge(nodo.Clave + "-" + nodo.der.Clave, nodo.Clave.toString(), nodo.der.Clave.toString());
+            edge.setAttribute("ui.style", "fill-color: black;");
         }
+
+        agregarAristas(graph, nodo.izq);
+        agregarAristas(graph, nodo.der);
     }
+}
+
+    
 }
