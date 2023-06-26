@@ -186,4 +186,75 @@ public class AVL<T extends Comparable<T>> {
             node = node.getRight();
         return node;
     }
+  
+    public T parent(T key) {
+        Nodo<T> parent = findParent(this.root, key);
+        if (parent == null)
+            throw new NoSuchElementException("La clave no existe o es la raíz");
+        return parent.getClave();
+    }
+    
+    private Nodo<T> findParent(Nodo<T> node, T key) {
+        if (node == null || node.getClave().equals(key))
+            return null;
+
+        int cmpLeft = (node.getLeft() != null) ? key.compareTo(node.getLeft().getClave()) : -1;
+        int cmpRight = (node.getRight() != null) ? key.compareTo(node.getRight().getClave()) : 1;
+
+        if (cmpLeft == 0 || cmpRight == 0)
+            return node;
+
+        if (cmpLeft < 0)
+            return findParent(node.getLeft(), key);
+        else
+            return findParent(node.getRight(), key);
+    }
+    
+    public List<T> children(T key) {
+    Nodo<T> node = findNode(this.root, key);
+    if (node == null)
+        throw new NoSuchElementException("La clave no existe");
+
+    List<T> children = new ArrayList<>();
+    if (node.getLeft() != null)
+        children.add(node.getLeft().getClave());
+    if (node.getRight() != null)
+        children.add(node.getRight().getClave());
+
+    return children;
+    }
+    
+    public boolean isLeaf(T key) {
+        Nodo<T> node = findNode(this.root, key);
+        if (node == null)
+            throw new NoSuchElementException("La clave no existe");
+        return (node.getLeft() == null && node.getRight() == null);
+    }
+    
+    private Nodo<T> findNode(Nodo<T> node, T key) {
+        if (node == null || node.getClave().equals(key))
+            return node;
+
+        int cmp = key.compareTo(node.getClave());
+
+        if (cmp < 0)
+            return findNode(node.getLeft(), key);
+        else
+            return findNode(node.getRight(), key);
+    }
+    
+    public void inOrderTraversal() {
+        inOrderTraversal(this.root);
+    }
+     
+    private void inOrderTraversal(Nodo<T> node) {
+        if (node != null) {
+            inOrderTraversal(node.getLeft());
+            for (int i = 0; i < node.getCount(); i++) {
+                System.out.print(node.getClave() + " ");
+            }
+            inOrderTraversal(node.getRight());
+        }
+    }
+  
 }
