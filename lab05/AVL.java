@@ -296,10 +296,10 @@ public void cerrarArbol(){
     if (nodo != null) {
         Node node = graph.addNode(nodo.Clave.toString());
         node.setAttribute("ui.label", nodo.Clave.toString());
-        node.setAttribute("ui.style", "text-size: 30px; text-alignment: at-right; text-background-mode: rounded-box; text-background-color: #ffffffbb; text-color: #000000; ");
+        node.setAttribute("ui.style", "text-size: 30px; text-alignment: center; text-background-mode: rounded-box; text-background-color: #ffffffbb; text-color: blue; ");
         node.setAttribute("xy", x, y);
-        agregarNodos(graph, nodo.izq, x - 1.0, y - 1.0); 
-        agregarNodos(graph, nodo.der, x + 1.0, y - 1.0);
+        agregarNodos(graph, nodo.izq, x - 4.0, y - 4.0); 
+        agregarNodos(graph, nodo.der, x + 4.0, y - 4.0);
     }
 }
 
