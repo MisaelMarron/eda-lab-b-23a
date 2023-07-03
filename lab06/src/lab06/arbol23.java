@@ -8,7 +8,7 @@ class arbol23<T extends Comparable<T>> {
 		private T data2;
 		
 		private Nodo<T> padre;
-		private T hijo [];
+		private Nodo<T> hijo [] = new Nodo[3] ;
 		
 		public Nodo(T data, Nodo<T> padre) {
 			this.data = data;
@@ -47,17 +47,64 @@ class arbol23<T extends Comparable<T>> {
 		insertDato(this.root , data);
 	}
 	
-	private void insertDato(Nodo<T> current , T data) {
-		if (current == null)
-			current = new Nodo<T>(data);
-		else if (current.data2 == null) 
-			current.data2 = data;
+	private void insertDato(Nodo<T> current , T dato) {
 		
+		//dos espacios
+		if (current == null)
+			current = new Nodo<T>(dato);
+		
+		//un espacio en el nodo
+		else if (current.data2 == null) {
+			if (dato.compareTo(current.data)==1)
+				current.data2= dato;
+			else {
+				current.data2 = current.data;
+				current.data = dato;
+			}
+		}
+			
+		if (current.data != null && current.data2 != null) {
+			if (dato.compareTo(current.data)== 1 && dato.compareTo(current.data2)== -1)
+				current = ingresarEntre(current , dato);
+			
+			else if (dato.compareTo(current.data2) == 1) 
+				current = ingresarMayor(current,dato);
+			
+			else if (dato.compareTo(current.data)== -1)
+				current = ingresarMenor(current , dato);
+			
+			
+			
+		}
 			
 		
 			
 	}
 	
-	
+	//metodos ayuda
+	public Nodo<T> ingresarEntre(Nodo<T> current , T dato){
+		Nodo<T> aux = new Nodo<T>(dato);
+		
+		aux.hijo[0] = new Nodo<T>(current.data);
+		aux.hijo[1] = new Nodo<T>(current.data2);
+		
+		return aux;
+	}
+	public Nodo<T> ingresarMenor(Nodo<T> current , T dato) {
+		Nodo<T> aux = new Nodo<T>(current.data) ;
+		
+		aux.hijo[0] = new Nodo<T>(dato);
+		aux.hijo[1] = new Nodo<T>(current.data2);
+		
+		return aux;
+	}
+	public Nodo<T> ingresarMayor(Nodo<T> current , T dato) {
+		Nodo<T> aux = new Nodo<T>(current.data2) ;
+		
+		aux.hijo[0] = new Nodo<T>(current.data);
+		aux.hijo[1] = new Nodo<T>(dato);
+		
+		return aux;
+	}
 	
 }
