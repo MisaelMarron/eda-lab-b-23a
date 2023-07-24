@@ -1,3 +1,5 @@
 /TrieNode.class
 /Tries.class
 /program.class
+*.project
+*.classpath
