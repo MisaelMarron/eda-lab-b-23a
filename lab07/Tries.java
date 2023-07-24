@@ -73,5 +73,21 @@ public void insert(String word) {
         
         Indices.get(word).add(InOrder.size() - 1);
      }
+}
+public boolean search(String word) {
+    TrieNode current = root;
+
+    for (int i = 0; i < word.length(); i++) {
+        char ch = word.charAt(i);
+        TrieNode node = current.getChild(ch);
+
+        if (node == null) {
+            return false;
+        }
+
+        current = node;
+    }
+
+    return current.isEndOfWord();
 }   
 }
