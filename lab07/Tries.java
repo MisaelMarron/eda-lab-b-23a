@@ -50,4 +50,28 @@ public class Tries {
         InOrder = new ArrayList<>();
         Indices = new HashMap<>();
     }
+
+public void insert(String word) {
+    TrieNode current = root;
+
+    for (int i = 0; i < word.length(); i++) {
+        char ch = word.charAt(i);
+        TrieNode node = current.getChild(ch);
+
+        if (node == null) {
+            node = new TrieNode();
+            current.setChild(ch, node);
+        }
+        current = node;
+    }
+
+        current.setEndOfWord(true);
+    if (!Indices.containsKey(word)) {
+            InOrder.add(word);
+        if (!Indices.containsKey(word)) 
+            Indices.put(word, new ArrayList<>());
+        
+        Indices.get(word).add(InOrder.size() - 1);
+     }
+}   
 }
