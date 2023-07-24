@@ -39,3 +39,15 @@ class TrieNode {
         isEndOfWord = endOfWord;
     }
 }
+
+public class Tries {
+    private TrieNode root;
+    private List<String> InOrder;
+    private Map<String, List<Integer>> Indices;
+
+    public Tries() {
+        root = new TrieNode();
+        InOrder = new ArrayList<>();
+        Indices = new HashMap<>();
+    }
+}
