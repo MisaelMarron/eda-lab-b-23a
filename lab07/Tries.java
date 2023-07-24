@@ -90,4 +90,52 @@ public boolean search(String word) {
 
     return current.isEndOfWord();
 }   
+public boolean delete(String word) {
+    if (!search(word)) {
+        return false;
+    }
+
+    TrieNode current = root;
+    TrieNode[] ancestors = new TrieNode[word.length()];
+
+    for (int i = 0; i < word.length(); i++) {
+        char ch = word.charAt(i);
+        TrieNode node = current.getChild(ch);
+
+        ancestors[i] = current;
+        current = node;
+    }
+
+    current.setEndOfWord(false);
+
+    for (int i = word.length() - 1; i >= 0; i--) {
+        TrieNode node = ancestors[i];
+
+        if (current.isEndOfWord() || hasChildren(current)) {
+            break;
+        }
+
+        char ch = word.charAt(i);
+        node.setChild(ch, null);
+        current = node;
+    }
+
+    List<Integer> indices = Indices.get(word);
+    if (indices != null && indices.size() > 0) {
+        int indexToRemove = indices.get(indices.size() - 1);
+        InOrder.remove(indexToRemove);
+        indices.remove(indices.size() - 1);
+    }
+
+    return true;
+}
+
+private boolean hasChildren(TrieNode node) {
+    for (TrieNode child : node.getChildren()) {
+        if (child != null) {
+            return true;
+        }
+    }
+    return false;
+}
 }
