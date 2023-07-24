@@ -1,4 +1,10 @@
+import javax.swing.*;
 import java.util.*;
+import javax.swing.text.*;
+import java.awt.Color;
+import java.awt.event.*;
+import java.util.List;
+import java.util.Map;
 class TrieNode {
 
     private static final int ALPHABET_SIZE = 30;
@@ -129,7 +135,22 @@ public boolean delete(String word) {
 
     return true;
 }
+public boolean startsWith(String prefix) {
+    TrieNode current = root;
 
+    for (int i = 0; i < prefix.length(); i++) {
+        char ch = prefix.charAt(i);
+        TrieNode node = current.getChild(ch);
+
+        if (node == null) {
+            return false;
+        }
+
+        current = node;
+    }
+
+    return true;
+}
 private boolean hasChildren(TrieNode node) {
     for (TrieNode child : node.getChildren()) {
         if (child != null) {
@@ -138,110 +159,15 @@ private boolean hasChildren(TrieNode node) {
     }
     return false;
 }
-public boolean replace(String word, String newWord) {
-    if (!search(word)) {
-        return false;
-    }
-
-    List<Integer> indices = wordIndices.get(word);
-    if (indices != null && indices.size() > 0) {
-        for (int i = indices.size() - 1; i >= 0; i--) {
-            int index = indices.get(i);
-            wordsInOrder.set(index, newWord);
-        }
-        indices.clear();
-    }
-
-    TrieNode current = root;
-    for (int i = 0; i < word.length(); i++) {
-        char ch = word.charAt(i);
-        TrieNode node = current.getChild(ch);
-        current = node;
-    }
-    current.setEndOfWord(false);
-
-    //insert(newWord);
-
-    return true;
-}
 
 
-public void printSetence() {
-    for (String word : wordsInOrder) {
-        System.out.print(word + " ");
-    }
-    System.out.print("\n");
-}
 
-public String printSetence2() {
-    String devolver = "";
-    for (String word : wordsInOrder) {
-        devolver += word + " ";
-    }
-    return devolver;
-}
 
-public String printString(String word2) {
-    String devolver = "";
-    for (String word : wordsInOrder) {
-        int index = word.indexOf(word2);
-        int endIndex = index + word2.length();
 
-        if (index >= 0) {
-            String beforeHighlight = word.substring(0, index);
-            String highlighted = word.substring(index, endIndex);
-            String afterHighlight = word.substring(endIndex);
 
-            devolver += beforeHighlight;
-            devolver += "\u001B[33m" + highlighted + "\u001B[0m";
-            devolver += afterHighlight + " ";
-        } else {
-            devolver += word + " ";
-        }
-    }
-    return devolver;
-}
 
-public void clear() {
-    root = new TrieNode();
-    wordsInOrder.clear();
-    wordIndices.clear();
-}
 
-public void printString2(String word3, JTextPane TextArea1) {
-    StyledDocument doc = TextArea1.getStyledDocument();
-    SimpleAttributeSet attr = new SimpleAttributeSet();
-    StyleConstants.setForeground(attr, Color.BLACK);
-    StyleConstants.setFontFamily(attr, "Arial");
 
-    SimpleAttributeSet yellowAttr = new SimpleAttributeSet();
-    StyleConstants.setForeground(yellowAttr, Color.RED);
-
-    for (String word : wordsInOrder) {
-        int index = word.indexOf(word3);
-        int endIndex = index + word3.length();
-
-        int currentPos = 0;
-        while (index >= 0) {
-            try {
-                doc.insertString(doc.getLength(), word.substring(currentPos, index), attr);
-                doc.insertString(doc.getLength(), word.substring(index, endIndex), yellowAttr);
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-
-            currentPos = endIndex;
-            index = word.indexOf(word3, endIndex);
-            endIndex = index + word3.length();
-        }
-
-        try {
-            doc.insertString(doc.getLength(), word.substring(currentPos) + " ", attr);
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-    }
-}
 public boolean replace(String word, String newWord) {
     if (!search(word)) {
         return false;
