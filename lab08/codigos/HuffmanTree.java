@@ -39,13 +39,11 @@ class HuffmanTree {
         encode(root.right, str + '1', huffmanCode);
     }
 
-    // Atraviesa el árbol de Huffman y decodifica la string codificada
     public static int decode(Nodo root, int index, StringBuilder sb) {
         if (root == null) {
             return index;
         }
 
-        // Encontré un nodo hoja
         if (isLeaf(root)) {
             System.out.print(root.ch);
             return index;
@@ -58,67 +56,45 @@ class HuffmanTree {
         return index;
     }
 
-    // Función de utilidad para verificar si Huffman Tree contiene solo un solo nodo
     public static boolean isLeaf(Nodo root) {
         return root.left == null && root.right == null;
     }
 
-    // Construye Huffman Tree y decodifica el texto de entrada dado
     public static void buildHuffmanTree(String text) {
-        // Caso base: string vacía
+
         if (text == null || text.length() == 0) {
             return;
         }
-
-        // Contar la frecuencia de aparición de cada personaje
-        // y almacenarlo en un mapa
 
         Map<Character, Integer> freq = new HashMap<>();
         for (char c : text.toCharArray()) {
             freq.put(c, freq.getOrDefault(c, 0) + 1);
         }
 
-        // crea una cola de prioridad para almacenar nodos activos del árbol de Huffman.
-        // Observe que el elemento de mayor prioridad tiene la frecuencia más baja
-
         PriorityQueue<Nodo> pq;
         pq = new PriorityQueue<>(Comparator.comparingInt(l -> l.freq));
-
-        // crea un nodo hoja para cada carácter y lo agrega
-        // a la cola de prioridad.
 
         for (var entry : freq.entrySet()) {
             pq.add(new Nodo(entry.getKey(), entry.getValue()));
         }
 
-        // hacer hasta que haya más de un nodo en la queue
         while (pq.size() != 1) {
-            // Elimina los dos nodos de mayor prioridad
-            // (la frecuencia más baja) de la queue
 
             Nodo left = pq.poll();
             Nodo right = pq.poll();
-
-            // crea un nuevo nodo interno con estos dos nodos como hijos
-            // y con una frecuencia igual a la suma de ambos nodos'
-            // frecuencias. Agregue el nuevo nodo a la cola de prioridad.
 
             int sum = left.freq + right.freq;
             pq.add(new Nodo(null, sum, left, right));
         }
 
-        // `root` almacena el puntero a la raíz de Huffman Tree
         Nodo root = pq.peek();
 
-        // Atraviesa el árbol de Huffman y almacena los códigos de Huffman en un mapa
         Map<Character, String> huffmanCode = new HashMap<>();
         encode(root, "", huffmanCode);
 
-        // Imprime los códigos de Huffman
         System.out.println("Codigos de Huffman: " + huffmanCode);
         System.out.println("Texto original: " + text);
 
-        // Imprimir string codificada
         StringBuilder sb = new StringBuilder();
         for (char c : text.toCharArray()) {
             sb.append(huffmanCode.get(c));
@@ -128,13 +104,10 @@ class HuffmanTree {
         System.out.print("Texto decodificado: ");
 
         if (isLeaf(root)) {
-            // Caso especial: Para entradas como a, aa, aaa, etc.
             while (root.freq-- > 0) {
                 System.out.print(root.ch);
             }
         } else {
-            // Atraviesa el árbol Huffman de nuevo y esta vez,
-            // decodifica la string codificada
             int index = -1;
             while (index < sb.length() - 1) {
                 index = decode(root, index, sb);
