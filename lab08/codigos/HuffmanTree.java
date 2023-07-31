@@ -1,4 +1,7 @@
 import java.util.*;
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.view.Viewer;
 
 class Nodo {
     Character ch = ' ';
@@ -120,4 +123,79 @@ class HuffmanTree {
             raiz.ch = '^';
     }
 
+    public void imprimirArbol() {
+        Graph graph = new SingleGraph("Árbol Huffman");
+        agregarNodos(graph, raiz, 0, 0);
+        agregarAristas(graph, raiz);
+        System.setProperty("org.graphstream.ui", "swing");
+        Viewer viewer = graph.display();
+        viewer.disableAutoLayout();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+
+    }
+
+    public void cerrarArbol() {
+        Graph graph = new SingleGraph("Árbol Huffman");
+        agregarNodos(graph, raiz, 0, 0);
+        agregarAristas(graph, raiz);
+        System.setProperty("org.graphstream.ui", "swing");
+        Viewer viewer = graph.display();
+        viewer.disableAutoLayout();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.EXIT);
+
+    }
+
+    private void agregarNodos(Graph graph, Nodo nodo, double x, double y) {
+        if (nodo != null) {
+
+            String ch;
+            ArrayList<String> lista = new ArrayList<>();
+            char[] nums = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            String[] letras = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j" };
+            if (nodo.ch == null) {
+                nodo.ch = nums[i];
+                i++;
+            }
+
+            if (nodo.ch != null) {
+                if (lista.contains(nodo.ch.toString()) == false)
+                    lista.add(nodo.ch.toString());
+                else {
+                    lista.add(nodo.ch.toString() + letras[j]);
+                    j++;
+                }
+
+            }
+
+            if (nodo.ch.toString().equals(" "))
+                ;
+            ch = "SPACE";
+
+            ch = nodo.ch.toString();
+
+            Node node = graph.addNode(ch);
+            node.setAttribute("ui.label", nodo.ch + "(" + nodo.freq.toString() + ")");
+            node.setAttribute("ui.style",
+                    "text-size: 20px; text-alignment: under; text-background-mode: rounded-box; text-background-color: #ffffffbb; text-color: blue; ");
+            node.setAttribute("xy", x, y);
+            agregarNodos(graph, nodo.left, x - 6.0, y - 6.0);
+            agregarNodos(graph, nodo.right, x + 6.0, y - 6.0);
+        }
+    }
+
+    private void agregarAristas(Graph graph, Nodo nodo) {
+        if (nodo != null) {
+            if (nodo.left != null) {
+                Edge edge = graph.addEdge(nodo.ch + "-" + nodo.left.ch, nodo.ch.toString(), nodo.left.ch.toString());
+                edge.setAttribute("ui.style", "fill-color: black;");
+            }
+            if (nodo.right != null) {
+                Edge edge = graph.addEdge(nodo.ch + "-" + nodo.right.ch, nodo.ch.toString(), nodo.right.ch.toString());
+                edge.setAttribute("ui.style", "fill-color: black;");
+            }
+
+            agregarAristas(graph, nodo.left);
+            agregarAristas(graph, nodo.right);
+        }
+    }
 }
